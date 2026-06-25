@@ -1,4 +1,4 @@
-export default function Dashboard({ email, onLogout }) {
+export default function Dashboard({ email, name, role, onLogout }) {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 shadow-sm">
@@ -58,7 +58,8 @@ export default function Dashboard({ email, onLogout }) {
               </h2>
               <p className="mt-1 text-gray-500">
                 Welcome to your dashboard,{' '}
-                <span className="font-medium text-gray-700">{email}</span>
+                <span className="font-medium text-gray-700">{name}</span>
+                {' '}({email})
               </p>
             </div>
           </div>
@@ -70,7 +71,7 @@ export default function Dashboard({ email, onLogout }) {
             </div>
             <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-5">
               <p className="text-sm font-medium text-emerald-600">Role</p>
-              <p className="mt-1 text-lg font-semibold text-gray-900">Admin</p>
+              <p className="mt-1 text-lg font-semibold text-gray-900">{role}</p>
             </div>
             <div className="rounded-xl bg-amber-50 border border-amber-100 p-5">
               <p className="text-sm font-medium text-amber-600">Last login</p>

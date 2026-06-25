@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
-export default function Login({ onLogin, error, onSwitchToRegister }) {
+export default function Register({ onRegister, error, onSwitchToLogin }) {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    onLogin(email, password)
+    onRegister({ name, email, password, confirmPassword })
   }
 
   return (
@@ -27,15 +29,15 @@ export default function Login({ onLogin, error, onSwitchToRegister }) {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
                 />
               </svg>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              Welcome back
+              Create account
             </h1>
             <p className="mt-2 text-sm text-gray-500">
-              Sign in to your account to continue
+              Register to get started
             </p>
           </div>
 
@@ -51,13 +53,32 @@ export default function Login({ onLogin, error, onSwitchToRegister }) {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1.5"
+              >
+                Full name
+              </label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                autoComplete="name"
+                placeholder="Jane Doe"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="register-email"
                 className="block text-sm font-medium text-gray-700 mb-1.5"
               >
                 Email address
               </label>
               <input
-                id="email"
+                id="register-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -70,20 +91,21 @@ export default function Login({ onLogin, error, onSwitchToRegister }) {
 
             <div>
               <label
-                htmlFor="password"
+                htmlFor="register-password"
                 className="block text-sm font-medium text-gray-700 mb-1.5"
               >
                 Password
               </label>
               <div className="relative">
                 <input
-                  id="password"
+                  id="register-password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  autoComplete="current-password"
-                  placeholder="Enter your password"
+                  minLength={6}
+                  autoComplete="new-password"
+                  placeholder="At least 6 characters"
                   className="w-full rounded-lg border border-gray-300 px-4 py-2.5 pr-11 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-colors"
                 />
                 <button
@@ -134,29 +156,45 @@ export default function Login({ onLogin, error, onSwitchToRegister }) {
               </div>
             </div>
 
+            <div>
+              <label
+                htmlFor="confirm-password"
+                className="block text-sm font-medium text-gray-700 mb-1.5"
+              >
+                Confirm password
+              </label>
+              <input
+                id="confirm-password"
+                type={showPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                minLength={6}
+                autoComplete="new-password"
+                placeholder="Re-enter your password"
+                className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-colors"
+              />
+            </div>
+
             <button
               type="submit"
               className="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors cursor-pointer"
             >
-              Sign in
+              Create account
             </button>
           </form>
 
           <p className="mt-6 text-center text-sm text-gray-600">
-            Don&apos;t have an account?{' '}
+            Already have an account?{' '}
             <button
               type="button"
-              onClick={onSwitchToRegister}
+              onClick={onSwitchToLogin}
               className="font-semibold text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline cursor-pointer"
             >
-              Create one
+              Sign in
             </button>
           </p>
         </div>
-
-        <p className="mt-6 text-center text-xs text-slate-400">
-          Demo credentials: admin@example.com / password123
-        </p>
       </div>
     </div>
   )
